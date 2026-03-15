@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>History</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+    nav{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    nav a{padding:8px 18px;background:rgba(255,255,255,0.2);color:white;border-radius:20px;text-decoration:none;font-size:.9rem;font-weight:600}
+    nav a:hover,nav a.active{background:white;color:#764ba2}
+    .box{max-width:720px;margin:0 auto;background:white;border-radius:16px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+    h2{color:#764ba2;margin-bottom:18px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #eee;font-size:.88rem}
+    th{background:#f5f5f5;font-weight:600}
+    tr:hover{background:#f8f9ff}
+    .empty{text-align:center;color:#aaa;padding:40px;font-size:1.1rem}
+    .btn{display:inline-block;padding:10px 24px;margin-top:16px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:10px;text-decoration:none;font-weight:600}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🏠 Home</a>
+    <a href="/dashboard">📊 Dashboard</a>
+    <a href="/history" class="active">🕐 History</a>
+    <a href="/about">ℹ️ About</a>
+  </nav>
+  <div class="box">
+    <h2>🕐 Prediction History</h2>
+    {% if history %}
+    <table>
+      <thead><tr><th>Time</th><th>Age</th><th>Gender</th><th>Condition</th><th>Drug</th><th>Dosage</th><th>Confidence</th></tr></thead>
+      <tbody>
+        {% for h in history %}
+        <tr><td>{{ h.time }}</td><td>{{ h.age }}</td><td>{{ h.gender }}</td>
+            <td>{{ h.condition }}</td><td><b>{{ h.drug }}</b></td>
+            <td>{{ h.dosage }} mg</td><td>{{ h.confidence }}%</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty">No predictions yet.<br/><a href="/" class="btn" style="display:inline-block;margin-top:20px;">Make First Prediction →</a></div>
+    {% endif %}
+    <a href="/" class="btn">← Back to Home</a>
+  </div>
+</body>
+</html>
