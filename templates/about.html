@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>About</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+    nav{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    nav a{padding:8px 18px;background:rgba(255,255,255,0.2);color:white;border-radius:20px;text-decoration:none;font-size:.9rem;font-weight:600}
+    nav a:hover,nav a.active{background:white;color:#764ba2}
+    .box{max-width:680px;margin:0 auto 16px;background:white;border-radius:16px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+    h2{color:#764ba2;font-size:1.5rem;margin-bottom:18px;text-align:center}
+    h3{color:#444;margin:18px 0 8px;font-size:1rem}
+    p{color:#555;font-size:.92rem;line-height:1.7;margin-bottom:10px}
+    .flow{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:center;margin:14px 0}
+    .step{background:#f0f4ff;border:2px solid #667eea;border-radius:10px;padding:10px 14px;text-align:center;font-size:.82rem;font-weight:600;color:#444}
+    .arrow{font-size:1.3rem;color:#667eea}
+    .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .tech{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center;font-size:.82rem;color:#555;font-weight:600}
+    .tech span{display:block;font-size:1.4rem;margin-bottom:4px}
+    .dev{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;padding:22px;text-align:center;color:white;margin-top:16px}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🏠 Home</a>
+    <a href="/dashboard">📊 Dashboard</a>
+    <a href="/history">🕐 History</a>
+    <a href="/about" class="active">ℹ️ About</a>
+  </nav>
+  <div class="box">
+    <h2>ℹ️ About This Project</h2>
+    <h3>🎯 Project Objective</h3>
+    <p>This system uses supervised machine learning to recommend appropriate drugs and dosages for patients based on their age, gender, and medical condition.</p>
+    <h3>⚙️ System Architecture</h3>
+    <div class="flow">
+      <div class="step">Patient Input</div><div class="arrow">→</div>
+      <div class="step">Encoding</div><div class="arrow">→</div>
+      <div class="step">ML Model</div><div class="arrow">→</div>
+      <div class="step">Drug + Dosage</div><div class="arrow">→</div>
+      <div class="step">PDF Report</div>
+    </div>
+    <h3>🤖 Models Used</h3>
+    <p><b>Drug Prediction:</b> Random Forest (200 trees, max_depth=10) — ~94% accuracy</p>
+    <p><b>Dosage Prediction:</b> Gradient Boosting (150 estimators) — structured data specialist</p>
+    <h3>📊 Dataset</h3>
+    <p>941 patient records · 5 medical conditions · 15 unique drugs · 5 dosage levels (50–850 mg) · Zero missing values</p>
+    <h3>🛠️ Tech Stack</h3>
+    <div class="tech-grid">
+      <div class="tech"><span>🐍</span>Python 3.11</div>
+      <div class="tech"><span>🌶️</span>Flask</div>
+      <div class="tech"><span>🤖</span>scikit-learn</div>
+      <div class="tech"><span>🐼</span>Pandas</div>
+      <div class="tech"><span>📊</span>Matplotlib</div>
+      <div class="tech"><span>📄</span>FPDF2</div>
+    </div>
+    <div class="dev">
+      <div style="font-size:1.2rem;font-weight:700;">👨‍💻 Syam Prakash</div>
+      <div style="font-size:.9rem;opacity:.85;margin-top:6px;">Final Year MCA · AI Drug Recommendation System · 2026</div>
+    </div>
+  </div>
+</body>
+</html>
