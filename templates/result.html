@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Result — AI Drug Recommendation</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+    nav{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    nav a{padding:8px 18px;background:rgba(255,255,255,0.2);color:white;border-radius:20px;text-decoration:none;font-size:.9rem;font-weight:600}
+    nav a:hover{background:rgba(255,255,255,0.4)}
+    .box{max-width:640px;margin:0 auto 16px;background:white;border-radius:16px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+    h2{color:#2ecc71;font-size:1.3rem;margin-bottom:14px}
+    h3{color:#444;margin:16px 0 10px;font-size:1rem}
+    .info{background:#f8f9ff;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:.9rem;color:#333;line-height:2}
+    .grid{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+    .rbox{flex:1;min-width:180px;border-radius:12px;padding:18px;text-align:center}
+    .drug{background:#f0f4ff;border:2px solid #667eea}
+    .dose{background:#f0fff4;border:2px solid #2ecc71}
+    .ico{font-size:1.8rem;margin-bottom:5px}
+    .lbl{font-size:.72rem;color:#888;font-weight:700;text-transform:uppercase}
+    .val{font-size:1.4rem;font-weight:700;color:#333;margin:6px 0}
+    .cf{font-size:.82rem;color:#667eea}
+    .bar{width:100%;height:8px;background:#e0e0e0;border-radius:4px;margin-top:6px;overflow:hidden}
+    .bar-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);border-radius:4px}
+    .dinfo{background:#fffbf0;border:1px solid #ffd700;border-radius:10px;padding:14px;margin-bottom:14px}
+    .dinfo b{color:#b8860b}
+    .dinfo table{width:100%;font-size:.88rem;margin-top:8px}
+    .dinfo td{padding:4px 8px;color:#555}
+    .dinfo td:first-child{font-weight:600;color:#333;width:120px}
+    .chart-box{text-align:center;margin-bottom:14px}
+    .chart-box img{max-width:100%;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,.1)}
+    table{width:100%;border-collapse:collapse;margin-bottom:12px}
+    th,td{padding:9px 12px;text-align:left;border-bottom:1px solid #eee;font-size:.88rem}
+    th{background:#f5f5f5;font-weight:600}
+    .btns{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+    .btn{flex:1;display:block;padding:12px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;text-align:center;border-radius:10px;text-decoration:none;font-weight:600;font-size:.95rem}
+    .btn.green{background:linear-gradient(135deg,#2ecc71,#27ae60)}
+    .btn:hover{opacity:.9}
+    .warn{margin-top:12px;padding:10px;background:#fff8e1;border-radius:8px;font-size:.8rem;color:#777;text-align:center}
+    .ts{font-size:.78rem;color:#aaa;text-align:right;margin-bottom:12px}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🏠 Home</a>
+    <a href="/dashboard">📊 Dashboard</a>
+    <a href="/history">🕐 History</a>
+    <a href="/about">ℹ️ About</a>
+  </nav>
+  <div class="box">
+    <h2>✅ Recommendation Result</h2>
+    <div class="ts">🕐 {{ timestamp }}</div>
+    <div class="info">
+      <b>Age:</b> {{ age }} &nbsp;|&nbsp; <b>Gender:</b> {{ gender }} &nbsp;|&nbsp;
+      <b>Condition:</b> {{ condition }} &nbsp;|&nbsp; <b>BP:</b> {{ bp }} &nbsp;|&nbsp;
+      <b>Severity:</b> {{ severity }}
+    </div>
+    <div class="grid">
+      <div class="rbox drug">
+        <div class="ico">💊</div>
+        <div class="lbl">Recommended Drug</div>
+        <div class="val">{{ drug }}</div>
+        <div class="cf">Confidence: {{ confidence }}%</div>
+        <div class="bar"><div class="bar-fill" style="width:{{ confidence }}%"></div></div>
+      </div>
+      <div class="rbox dose">
+        <div class="ico">⚖️</div>
+        <div class="lbl">Recommended Dosage</div>
+        <div class="val">{{ dosage }} mg</div>
+        <div class="cf">per dose</div>
+      </div>
+    </div>
+    <div class="dinfo">
+      <b>📋 Drug Information — {{ drug }}</b>
+      <table>
+        <tr><td>Drug Class</td><td>{{ drug_info.class }}</td></tr>
+        <tr><td>Primary Use</td><td>{{ drug_info.use }}</td></tr>
+        <tr><td>Important Note</td><td style="color:#e74c3c;">⚠️ {{ drug_info.note }}</td></tr>
+      </table>
+    </div>
+    <h3>📊 Confidence Chart</h3>
+    <div class="chart-box">
+      <img src="data:image/png;base64,{{ chart_b64 }}" alt="Confidence Chart"/>
+    </div>
+    <h3>🔄 Top 3 Alternative Drugs</h3>
+    <table>
+      <thead><tr><th>#</th><th>Drug Name</th><th>Confidence %</th></tr></thead>
+      <tbody>
+        {% for alt in alternatives %}
+        <tr><td>{{ loop.index }}</td><td>{{ alt.drug }}</td><td><b>{{ alt.confidence }}%</b></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="btns">
+      <a href="/" class="btn">← New Prediction</a>
+      <a href="/download_pdf" class="btn green">⬇️ Download PDF</a>
+    </div>
+    <div class="warn">⚠️ Academic project only. Always consult a licensed doctor.</div>
+  </div>
+  {% if history and history|length > 1 %}
+  <div class="box">
+    <h3>🕐 Recent History</h3>
+    <table>
+      <thead><tr><th>Time</th><th>Age</th><th>Condition</th><th>Drug</th><th>Dosage</th><th>Confidence</th></tr></thead>
+      <tbody>
+        {% for h in history %}
+        <tr><td>{{ h.time }}</td><td>{{ h.age }}</td><td>{{ h.condition }}</td>
+            <td>{{ h.drug }}</td><td>{{ h.dosage }} mg</td><td>{{ h.confidence }}%</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</body>
+</html>
