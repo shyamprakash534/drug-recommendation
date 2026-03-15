@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Dashboard</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
+    nav{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    nav a{padding:8px 18px;background:rgba(255,255,255,0.2);color:white;border-radius:20px;text-decoration:none;font-size:.9rem;font-weight:600}
+    nav a:hover,nav a.active{background:white;color:#764ba2}
+    .box{max-width:680px;margin:0 auto 16px;background:white;border-radius:16px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+    h2{color:#764ba2;font-size:1.4rem;margin-bottom:18px;text-align:center}
+    h3{color:#444;font-size:1rem;margin:18px 0 12px}
+    .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+    .stat{background:#f8f9ff;border:2px solid #667eea;border-radius:12px;padding:16px;text-align:center}
+    .stat-num{font-size:1.8rem;font-weight:700;color:#667eea}
+    .stat-lbl{font-size:.75rem;color:#888;font-weight:600;text-transform:uppercase;margin-top:4px}
+    .acc{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+    .acc-box{flex:1;min-width:180px;border-radius:12px;padding:16px;text-align:center}
+    .acc-d{background:#f0f4ff;border:2px solid #667eea}
+    .acc-do{background:#fff0f0;border:2px solid #e74c3c}
+    .acc-num{font-size:2rem;font-weight:700}
+    .acc-d .acc-num{color:#667eea}
+    .acc-do .acc-num{color:#e74c3c}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:9px 12px;text-align:left;border-bottom:1px solid #eee;font-size:.88rem}
+    th{background:#f5f5f5;font-weight:600}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">🏠 Home</a>
+    <a href="/dashboard" class="active">📊 Dashboard</a>
+    <a href="/history">🕐 History</a>
+    <a href="/about">ℹ️ About</a>
+  </nav>
+  <div class="box">
+    <h2>📊 Project Dashboard</h2>
+    <h3>📌 Dataset Overview</h3>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-num">{{ stats.total_patients }}</div><div class="stat-lbl">Patient Records</div></div>
+      <div class="stat"><div class="stat-num">{{ stats.conditions }}</div><div class="stat-lbl">Conditions</div></div>
+      <div class="stat"><div class="stat-num">{{ stats.unique_drugs }}</div><div class="stat-lbl">Unique Drugs</div></div>
+    </div>
+    <h3>🤖 Model Performance</h3>
+    <div class="acc">
+      <div class="acc-box acc-d">
+        <div class="acc-num">{{ stats.drug_accuracy }}%</div>
+        <div style="font-size:.8rem;color:#888;margin-top:4px;">Drug Prediction</div>
+        <div style="font-size:.75rem;color:#555;margin-top:4px;">{{ stats.model_drug }}</div>
+      </div>
+      <div class="acc-box acc-do">
+        <div class="acc-num">{{ stats.dosage_accuracy }}%</div>
+        <div style="font-size:.8rem;color:#888;margin-top:4px;">Dosage Prediction</div>
+        <div style="font-size:.75rem;color:#555;margin-top:4px;">{{ stats.model_dosage }}</div>
+      </div>
+    </div>
+    <h3>💊 Conditions & Available Drugs</h3>
+    <table>
+      <thead><tr><th>Condition</th><th>Drugs</th></tr></thead>
+      <tbody>
+        <tr><td>🩸 Diabetes</td><td>Metformin, Glipizide, Insulin Glargine</td></tr>
+        <tr><td>❤️ Hypertension</td><td>Amlodipine, Metoprolol, Losartan</td></tr>
+        <tr><td>🧠 Depression</td><td>Sertraline, Escitalopram, Bupropion</td></tr>
+        <tr><td>🦠 Infection</td><td>Amoxicillin, Ciprofloxacin, Azithromycin</td></tr>
+        <tr><td>💊 Pain Relief</td><td>Paracetamol, Ibuprofen, Tramadol</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
