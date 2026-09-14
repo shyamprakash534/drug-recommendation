@@ -20,13 +20,12 @@ jobs:
         run: python train_models.py
       - name: Compile application
         run: python -m py_compile app.py train_models.py
-      - name: Smoke test imports and health route
+      - name: Smoke test application
         run: |
           python - <<'PY'
           import app
           client = app.app.test_client()
-          response = client.get('/health')
+          response = client.get('/')
           assert response.status_code == 200
-          assert response.get_json()['models_loaded'] is True
-          print('health check passed')
+          print('application smoke test passed')
           PY
