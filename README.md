@@ -112,7 +112,7 @@ The recommendations, dosage values, treatment schedules, and drug information in
 **Shyam Prakash**
 
 - GitHub: https://github.com/shyamprakash534
-- LinkedIn: https://www.linkedin.com/in/shyam-prakash-269a74208/
+- LinkedIn: https://www.linkedin.com/in/shyam-prakash-vemula-721029263
 
 ---
 
